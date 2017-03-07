@@ -21,6 +21,7 @@
   "dependencies": {
     "exponent": "14.0.0",
     "react": "~15.4.0",
-    "react-native": "0.41.2"
+    "react-native": "0.41.2",
+    "seedrandom": "^2.4.2"
   }
 }
