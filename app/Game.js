@@ -3,13 +3,13 @@ import seedrandom from 'seedrandom';
 // Goddess of the hunt
 const ARTEMIS = {
   Bear: {
-    power: 2,
-    toughness: 2,
+    attack: 2,
+    health: 2,
     cost: 2,
   },
   Stag: {
-    power: 3,
-    toughness: 4,
+    attack: 3,
+    health: 4,
     cost: 4,
   },
 };
@@ -21,8 +21,8 @@ const APOLLO = {
     cost: 4,
   },
   Elemental: {
-    power: 3,
-    toughness: 1,
+    attack: 3,
+    health: 1,
     cost: 3,
   }
 };
