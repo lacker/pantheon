@@ -1,5 +1,18 @@
 import seedrandom from 'seedrandom';
 
+// God of the sun
+const APOLLO = {
+  Flare: {
+    damageAllEnemies: 2,
+    cost: 4,
+  },
+  Elemental: {
+    attack: 3,
+    health: 1,
+    cost: 3,
+  }
+};
+
 // Goddess of the hunt
 const ARTEMIS = {
   Bear: {
@@ -14,26 +27,26 @@ const ARTEMIS = {
   },
 };
 
-// God of the sun
-const APOLLO = {
-  Flare: {
-    damageAllEnemies: 2,
-    cost: 4,
-  },
-  Elemental: {
-    attack: 3,
-    health: 1,
-    cost: 3,
-  }
+const DECKS = {
+  Apollo: APOLLO,
+  Artemis: ARTEMIS,
 };
 
 export default class Game {
-  // player1 and player2 are just string ids for the players
-  // player1 will go first
-  constructor(player1, player2, seed) {
-    this.playerIds = [player1, player2];
-    this.turn = player1;
+  // players is a map from id to deckname
+  constructor(players, seed) {
+    this.players = players;
     this.rng = seedrandom(seed);
+
+    // See who goes first
+    let playerList = Object.keys(this.players);
+    if (this.rng() < 0.5) {
+      this.activePlayer = playerList[0];
+      this.inactivePlayer = playerList[1];
+    } else {
+      this.activePlayer = playerList[1];
+      this.inactivePlayer = playerList[0];
+    }
 
     // TODO: make hands and fields
   }
