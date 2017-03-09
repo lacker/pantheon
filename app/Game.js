@@ -32,6 +32,23 @@ const DECKS = {
   Artemis: ARTEMIS,
 };
 
+class Deck {
+  constructor(name) {
+    this.name = name;
+    this.cards = DECKS[name];
+
+    this.cardlist = [];
+    for (let key of this.cards) {
+      this.cardlist.push(this.cards[key]);
+    }
+  }
+
+  // Gets a random card given a random 0-1 floating point number.
+  random(float) {
+    return this.cardlist[Math.floor(float * this.cardlist.length)];
+  }
+}
+
 export default class Game {
   // players is a map from id to deckname
   constructor(players, seed) {
@@ -49,6 +66,10 @@ export default class Game {
     }
 
     // TODO: make hands and fields
+  }
+
+  randomCard(player) {
+
   }
 
   // TODO: enumerate legit actions
