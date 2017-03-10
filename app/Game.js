@@ -37,20 +37,23 @@ class Deck {
     this.name = name;
     this.cards = DECKS[name];
 
+    // The cardlist has a 'name' field on it
     this.cardlist = [];
-    for (let key of this.cards) {
-      this.cardlist.push(this.cards[key]);
+    for (let name in this.cards) {
+      let card = { ...this.cards[name], name };
+      this.cardlist.push(card);
     }
   }
 
   // Gets a random card given a random 0-1 floating point number.
+  // Adds the 'name' field to the card, too.
   random(float) {
     return this.cardlist[Math.floor(float * this.cardlist.length)];
   }
 }
 
 export default class Game {
-  // players is a map from id to deckname
+  // players is a map from player id to deckname
   constructor(players, seed) {
     this.players = players;
     this.rng = seedrandom(seed);
@@ -65,11 +68,14 @@ export default class Game {
       this.inactivePlayer = playerList[0];
     }
 
-    // TODO: make hands and fields
+    // hands is a map from player id to list-of-cards hand.
+    // In the hand, the name is stored under the 'name' field.
+    this.hands = {};
+    // TODO: implement
   }
 
   randomCard(player) {
-
+    // TODO: implement
   }
 
   // TODO: enumerate legit actions
