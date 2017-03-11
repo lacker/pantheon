@@ -83,6 +83,11 @@ export default class Game {
         hand.push(this.decks[playerId].random(this.rng()));
       }
     }
+
+    this.fields = {};
+    for (let playerId of playerList) {
+      this.fields[playerId] = [];
+    }
   }
 
   randomCard(player) {
