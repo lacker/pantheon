@@ -56,10 +56,16 @@ export default class Game {
   // players is a map from player id to deckname
   constructor(players, seed) {
     this.players = players;
+    this.decks = {};
+    for (let playerId in players) {
+      let deckname = players[playerId];
+      this.decks[playerId] = new Deck(deckname);
+    }
     this.rng = seedrandom(seed);
 
     // See who goes first
     let playerList = Object.keys(this.players);
+    playerList.sort();
     if (this.rng() < 0.5) {
       this.activePlayer = playerList[0];
       this.inactivePlayer = playerList[1];
@@ -71,7 +77,12 @@ export default class Game {
     // hands is a map from player id to list-of-cards hand.
     // In the hand, the name is stored under the 'name' field.
     this.hands = {};
-    // TODO: implement
+    for (let playerId of playerList) {
+      let hand = [];
+      for (let i = 0; i < 3; i++) {
+        hand.push(this.decks[playerId].random(this.rng()));
+      }
+    }
   }
 
   randomCard(player) {
