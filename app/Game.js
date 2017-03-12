@@ -90,8 +90,8 @@ export default class Game {
     }
   }
 
-  randomCard(player) {
-    // TODO: implement
+  randomCard(playerId) {
+    return this.decks[playerId].random(this.rng());
   }
 
   // TODO: enumerate legit actions
