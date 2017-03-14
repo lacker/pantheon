@@ -94,8 +94,17 @@ export default class Game {
     return this.decks[playerId].random(this.rng());
   }
 
-  // TODO: enumerate legit actions
+  toggleActivePlayer() {
+    let currentActive = this.activePlayer;
+    let nextActive = this.inactivePlayer;
+    this.activePlayer = nextActive;
+    this.inactivePlayer = currentActive;
+  }
+
+  // Legitimate actions:
+  // { type: 'endTurn' }
+  // TODO: enumerate more legit actions
   processAction(action) {
-    // TODO: implement
+    // TODO: implement the legit actions
   }
 }
