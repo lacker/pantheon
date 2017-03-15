@@ -101,6 +101,12 @@ export default class Game {
     this.inactivePlayer = currentActive;
   }
 
+  // Has the active player draw a card
+  drawCard() {
+    let card = this.randomCard(this.activePlayer);
+    this.hands[this.activePlayer].push(card);
+  }
+
   // Legitimate actions:
   // { type: 'endTurn' }
   // TODO: enumerate more legit actions
