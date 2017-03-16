@@ -47,8 +47,15 @@ class Deck {
 
   // Gets a random card given a random 0-1 floating point number.
   // Adds the 'name' field to the card, too.
-  random(float) {
-    return this.cardlist[Math.floor(float * this.cardlist.length)];
+  // Also adds a numerical 'id'.
+  random(game) {
+    game.totalCards += 1;
+    let index = Math.floor(game.rng() * this.cardlist.length);
+    let card = {
+      ...this.cardlist[index],
+      id: game.totalCards,
+    };
+    return card;
   }
 }
 
@@ -61,6 +68,10 @@ export default class Game {
       let deckname = players[playerId];
       this.decks[playerId] = new Deck(deckname);
     }
+
+    // The number of cards that were ever drawn
+    this.totalCards = 0
+
     this.rng = seedrandom(seed);
 
     // See who goes first
@@ -80,7 +91,7 @@ export default class Game {
     for (let playerId of playerList) {
       let hand = [];
       for (let i = 0; i < 3; i++) {
-        hand.push(this.decks[playerId].random(this.rng()));
+        hand.push(this.decks[playerId].random(this));
       }
     }
 
@@ -91,7 +102,7 @@ export default class Game {
   }
 
   randomCard(playerId) {
-    return this.decks[playerId].random(this.rng());
+    return this.decks[playerId].random(this);
   }
 
   toggleActivePlayer() {
