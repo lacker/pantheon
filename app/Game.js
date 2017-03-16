@@ -109,8 +109,15 @@ export default class Game {
 
   // Legitimate actions:
   // { type: 'endTurn' }
-  // TODO: enumerate more legit actions
+  // TODO: more actions
   processAction(action) {
-    // TODO: implement the legit actions
+    switch(action.type) {
+      case 'endTurn':
+      this.toggleActivePlayer();
+      this.drawCard();
+      break;
+      default:
+      throw new Error('weird action type: ' + action.type);
+    }
   }
 }
