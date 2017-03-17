@@ -118,6 +118,25 @@ export default class Game {
     this.hands[this.activePlayer].push(card);
   }
 
+  // Pops a card from the hand and returns it
+  // Returns null if there is no such card
+  handPop(playerId, cardId) {
+    let newHand = [];
+    let retVal = null;
+    for (let card of this.hands[playerId]) {
+      if (card.id === cardId) {
+        retVal = card;
+      } else {
+        newHand.push(card);
+      }
+    }
+    if (retVal === null) {
+      return null;
+    }
+    this.hands[playerId] = newHand;
+    return retVal;
+  }
+
   // Legitimate actions:
   // { type: 'endTurn' }
   // TODO: more actions
