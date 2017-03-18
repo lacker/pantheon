@@ -139,12 +139,17 @@ export default class Game {
 
   // Legitimate actions:
   // { type: 'endTurn' }
+  // { type: 'summon', cardId }
   // TODO: more actions
   processAction(action) {
     switch(action.type) {
       case 'endTurn':
       this.toggleActivePlayer();
       this.drawCard();
+      break;
+      case 'summon':
+      let card = this.handPop(this.activePlayer, action.cardId);
+      this.fields[this.activePlayer].push(card);
       break;
       default:
       throw new Error('weird action type: ' + action.type);
