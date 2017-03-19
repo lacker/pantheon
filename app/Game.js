@@ -84,6 +84,7 @@ export default class Game {
       this.activePlayer = playerList[1];
       this.inactivePlayer = playerList[0];
     }
+    this.firstPlayer = this.activePlayer;
 
     // hands is a map from player id to list-of-cards hand.
     // In the hand, the name is stored under the 'name' field.
@@ -96,7 +97,11 @@ export default class Game {
     }
 
     this.fields = {};
+    this.currentMana = {};
+    this.totalMana = {};
     for (let playerId of playerList) {
+      this.totalMana[playerId] = 0;
+      this.currentMana[playerId] = 0;
       this.fields[playerId] = [];
     }
   }
