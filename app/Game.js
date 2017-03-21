@@ -150,6 +150,8 @@ export default class Game {
     switch(action.type) {
       case 'endTurn':
       this.toggleActivePlayer();
+      this.currentMana[this.activePlayer] = (
+        this.totalMana[this.activePlayer]);
       this.drawCard();
       break;
       case 'summon':
