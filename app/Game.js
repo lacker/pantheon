@@ -99,10 +99,12 @@ export default class Game {
     this.fields = {};
     this.currentMana = {};
     this.totalMana = {};
+    this.life = {};
     for (let playerId of playerList) {
       this.totalMana[playerId] = 0;
       this.currentMana[playerId] = 0;
       this.fields[playerId] = [];
+      this.life[playerId] = 30;
     }
   }
 
