@@ -144,9 +144,21 @@ export default class Game {
     return retVal;
   }
 
+  // Finds a card in the field
+  // Returns null if there is no such card
+  findCardInField(playerId, cardId) {
+    for (let card of this.fields[playerId]) {
+      if (card.id === cardId) {
+        return card;
+      }
+    }
+    return null;
+  }
+
   // Legitimate actions:
   // { type: 'endTurn' }
   // { type: 'summon', cardId }
+  // { type: 'attackPlayer', cardId }
   // TODO: more actions
   processAction(action) {
     switch(action.type) {
@@ -159,6 +171,11 @@ export default class Game {
       case 'summon':
       let card = this.handPop(this.activePlayer, action.cardId);
       this.fields[this.activePlayer].push(card);
+      break;
+      case 'attackPlayer':
+      let card = this.findCardInField(this.activePlayer, action.cardId);
+      this.life[this.inactivePlayer] -= card.attack;
+      // TODO: end the game if appropriate
       break;
       default:
       throw new Error('weird action type: ' + action.type);
