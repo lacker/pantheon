@@ -155,6 +155,25 @@ export default class Game {
     return null;
   }
 
+  // Removes a card from the field and returns it
+  // Returns null if there is no such card
+  fieldPop(playerId, cardId) {
+    let newField = [];
+    let retVal = null;
+    for (let card of this.fields[playerId]) {
+      if (card.id === cardId) {
+        retVal = card;
+      } else {
+        newField.push(card);
+      }
+    }
+    if (retVal === null) {
+      return null;
+    }
+    this.fields[playerId] = newField;
+    return retVal;
+  }
+
   // Legitimate actions:
   // { type: 'endTurn' }
   // { type: 'summon', cardId }
