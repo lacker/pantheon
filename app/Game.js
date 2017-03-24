@@ -174,6 +174,15 @@ export default class Game {
     return retVal;
   }
 
+  // Damages a card and removes it from the field if it dies
+  damage(playerId, cardId, amount) {
+    let card = findCardInField(playerId, cardId);
+    card.health -= amount;
+    if (card.health <= 0) {
+      this.fieldPop(playerId, cardId);
+    }
+  }
+
   // Legitimate actions:
   // { type: 'endTurn' }
   // { type: 'summon', cardId }
