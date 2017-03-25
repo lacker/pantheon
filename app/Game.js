@@ -187,6 +187,7 @@ export default class Game {
   // { type: 'endTurn' }
   // { type: 'summon', cardId }
   // { type: 'attackPlayer', cardId }
+  // { type: 'attackCreature', cardId, targetId }
   // TODO: more actions
   processAction(action) {
     switch(action.type) {
@@ -204,6 +205,14 @@ export default class Game {
       let card = this.findCardInField(this.activePlayer, action.cardId);
       this.life[this.inactivePlayer] -= card.attack;
       // TODO: end the game if appropriate
+      break;
+      case 'attackCreature':
+      let card = this.findCardInField(this.activePlayer, action.cardId);
+      let target = this.findCardInField(
+        this.inactivePlayer,
+        action.targetId);
+      this.damage(this.inactivePlayer, target.id, card.attack);
+      this.damage(this.activePlayer, card.id, target.attack);
       break;
       default:
       throw new Error('weird action type: ' + action.type);
