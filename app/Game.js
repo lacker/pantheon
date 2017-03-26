@@ -100,6 +100,7 @@ export default class Game {
     this.currentMana = {};
     this.totalMana = {};
     this.life = {};
+    this.gameOver = false;
     for (let playerId of playerList) {
       this.totalMana[playerId] = 0;
       this.currentMana[playerId] = 0;
@@ -188,8 +189,10 @@ export default class Game {
   // { type: 'summon', cardId }
   // { type: 'attackPlayer', cardId }
   // { type: 'attackCreature', cardId, targetId }
-  // TODO: more actions
   processAction(action) {
+    if (this.gameOver) {
+      throw new Error('the game is over, no more game actions');
+    }
     switch(action.type) {
       case 'endTurn':
       this.toggleActivePlayer();
@@ -204,7 +207,7 @@ export default class Game {
       case 'attackPlayer':
       let card = this.findCardInField(this.activePlayer, action.cardId);
       this.life[this.inactivePlayer] -= card.attack;
-      // TODO: end the game if appropriate
+      this.gameOver = true;
       break;
       case 'attackCreature':
       let card = this.findCardInField(this.activePlayer, action.cardId);
